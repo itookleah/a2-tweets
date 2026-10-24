@@ -3,7 +3,7 @@ function parseTweets(runkeeper_tweets) {
 	if(runkeeper_tweets === undefined) {
 		window.alert('No tweets returned');
 		return;
-	}
+	} 
 
 	//TODO: Filter to just the written tweets
 }
