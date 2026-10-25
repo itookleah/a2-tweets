@@ -48,11 +48,29 @@ function parseTweets(runkeeper_tweets) {
 	}
 
 	//Display counts
-	document.querySelector('.completedEvents').innerText = compEvents;
+	var elems = document.querySelectorAll('.completedEvents');
+	for (var i = 0; i < elems.length; i++) {
+		elems[i].innerText = compEvents;
+	}
 	document.querySelector('.liveEvents').innerText = liveEvent;
 	document.querySelector('.achievements').innerText = numAchieved;
 	document.querySelector('.miscellaneous').innerText = miscCount;
 
+	//Calculate and display pcts
+	document.querySelector('.completedEventsPct').innerText = math.format((compEvents/tweet_array.length) * 100, {notation: 'fixed', precision: 2}) + "%";
+	document.querySelector('.liveEventsPct').innerText = math.format((liveEvent/tweet_array.length) * 100, {notation: 'fixed', precision: 2}) + "%";
+	document.querySelector('.achievementsPct').innerText = math.format((numAchieved/tweet_array.length) * 100, {notation: 'fixed', precision: 2}) + "%";
+	document.querySelector('.miscellaneousPct').innerText = math.format((miscCount/tweet_array.length) * 100, {notation: 'fixed', precision: 2}) + "%";
+
+	//User written texts
+	var userCount = 0;
+	for (var i = 0; i < tweet_array.length; i++) {
+		if (tweet_array[i].written === true) {
+			userCount += 1;
+		}
+	}
+	document.querySelector('.written').innerText = userCount;
+	document.querySelector('.writtenPct').innerText = math.format((userCount/compEvents) * 100, {notation: 'fixed', precision: 2}) + "%";
 }
 
 //Wait for the DOM to load

@@ -36,6 +36,18 @@ class Tweet {
             return "";
         }
         //TODO: parse the written text from the tweet
+        var pieces = this.text.split(" ");
+        var userText = "";
+        for (var i = 0; i < pieces.length - 1; i++) {
+            if (pieces[i] === '-') {
+                userText = userText + pieces[i];
+                for (var j = 0; j < pieces.length; j++)  {
+                    if (pieces[i].startsWith('https')) {
+                        return userText;
+                    }
+                }
+            }
+        }
         return "";
     }
 
