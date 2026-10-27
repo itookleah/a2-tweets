@@ -19,7 +19,6 @@ class Tweet {
         } else {
             return "miscellaneous";
         }
-
     }
 
     //returns a boolean, whether the text includes any content written by the person tweeting.
@@ -41,7 +40,7 @@ class Tweet {
         for (var i = 0; i < pieces.length - 1; i++) {
             if (pieces[i] === '-') {
                 userText = userText + pieces[i];
-                for (var j = 0; j < pieces.length; j++)  {
+                for (let j = 0; j < pieces.length; j++)  {
                     if (pieces[i].startsWith('https')) {
                         return userText;
                     }
@@ -56,7 +55,25 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
-        return "";
+        if (this.text.includes("run")) {
+            return "run";
+        } else if (this.text.includes("bike")) {
+            return "bike";
+        } else if (this.text.includes("walk")) {
+            return "walk";
+        } else if (this.text.includes("workout")) {
+            return "workout";
+        } else if (this.text.includes("ski")) {
+            return "ski";
+        } else if (this.text.includes("row")) {
+            return "row";
+        } else if (this.text.includes("yoga")) {
+            return "yoga";
+        } else if (this.text.includes("swim")) {
+            return "swim";
+        } else {
+            return "unknown";  
+        }
     }
 
     get distance():number {
@@ -64,11 +81,25 @@ class Tweet {
             return 0;
         }
         //TODO: prase the distance from the text of the tweet
+        var beginning = this.text.indexOf("a ") + 2;
+        var mi = this.text.indexOf("mi");
+        var km = this.text.indexOf("km");
+        var dist = 0;
+        if (this.text.includes("mi")) {
+            dist = parseFloat(this.text.substring(beginning, mi));
+            return dist;
+        } else if (this.text.includes("km")) {
+            dist = parseFloat(this.text.substring(beginning, km));
+            dist = dist/1.609;
+            return dist;
+        }
         return 0;
     }
 
     getHTMLTableRow(rowNumber:number):string {
         //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        return "<tr></tr>";
+        var written_text = this.text; 
+
+        return "<tr>" + "<td>" + rowNumber + "</td>" + "<td>" + this.activityType + "</td>" + "<td>" + written_text + "</td>" + "</tr>";
     }
 }
